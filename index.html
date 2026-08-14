@@ -5,16 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Just-a-game</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #06060e;
-    font-family: 'Share Tech Mono', monospace;
-    color: #b0b8c8;
+    background: #c0c0c0;
+    font-family: 'Press Start 2P', monospace;
+    color: #000;
     overflow-x: hidden;
     min-height: 100vh;
+    image-rendering: pixelated;
   }
 
   #app {
@@ -22,173 +23,174 @@
     height: 100vh;
   }
 
-  /* ─── CONTROL PANEL ─── */
+  /* ─── CONTROL PANEL — retro window ─── */
   #panel {
-    width: 290px;
-    min-width: 290px;
-    background: #0b0b16;
-    border-right: 1px solid #1a1a2e;
-    padding: 16px 14px;
+    width: 300px;
+    min-width: 300px;
+    background: #e8e8e8;
+    border-right: 3px solid #000;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-bottom: 3px solid #000;
+    padding: 0;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0;
     scrollbar-width: thin;
-    scrollbar-color: #1a1a2e #0b0b16;
+    scrollbar-color: #888 #c0c0c0;
   }
 
-  #panel::-webkit-scrollbar { width: 4px; }
-  #panel::-webkit-scrollbar-track { background: #0b0b16; }
-  #panel::-webkit-scrollbar-thumb { background: #1a1a2e; border-radius: 2px; }
+  #panel::-webkit-scrollbar { width: 14px; }
+  #panel::-webkit-scrollbar-track { background: #c0c0c0; border-left: 1px solid #000; }
+  #panel::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border: 2px outset #ddd;
+  }
 
   .panel-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 9px;
-    color: #ff6633;
+    font-size: 8px;
+    color: #000;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 8px 0 6px;
-    border-bottom: 1px solid #1a1a2e;
-    margin-bottom: 4px;
-    text-shadow: 0 0 12px rgba(255,102,51,0.4);
+    letter-spacing: 1px;
   }
 
   .section {
-    background: #0e0e1a;
-    border: 1px solid #15152a;
-    border-radius: 6px;
-    padding: 10px;
-    margin-bottom: 2px;
+    background: #e8e8e8;
+    border: 2px solid #000;
+    margin: 4px 8px;
+    padding: 8px;
+    position: relative;
   }
 
   .section-label {
-    font-size: 9px;
-    color: #667;
+    font-size: 7px;
+    color: #000;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 8px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed #999;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
   }
 
   .section-label::before {
-    content: '';
-    display: inline-block;
-    width: 6px; height: 6px;
-    background: #ff6633;
-    border-radius: 1px;
+    content: '■';
+    font-size: 6px;
+    color: #000;
   }
 
   .control-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 0;
+    padding: 4px 0;
   }
 
   .control-label {
-    font-size: 11px;
-    color: #8890a0;
+    font-size: 7px;
+    color: #333;
   }
 
-  /* Toggle switch */
+  /* Toggle — retro checkbox */
   .toggle {
     position: relative;
-    width: 38px;
-    height: 20px;
+    width: 32px;
+    height: 16px;
     cursor: pointer;
   }
   .toggle input { display: none; }
   .toggle .slider {
     position: absolute;
     inset: 0;
-    background: #1a1a2e;
-    border-radius: 10px;
-    transition: 0.25s;
-    border: 1px solid #252540;
+    background: #c0c0c0;
+    transition: 0.15s;
+    border-top: 2px solid #555;
+    border-left: 2px solid #555;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
   }
   .toggle .slider::after {
     content: '';
     position: absolute;
-    width: 14px; height: 14px;
-    left: 2px; top: 2px;
-    background: #445;
-    border-radius: 50%;
-    transition: 0.25s;
+    width: 10px; height: 10px;
+    left: 1px; top: 1px;
+    background: #888;
+    transition: 0.15s;
   }
   .toggle input:checked + .slider {
-    background: #1a3322;
-    border-color: #2a5533;
+    background: #000;
   }
   .toggle input:checked + .slider::after {
-    transform: translateX(18px);
-    background: #44ff44;
-    box-shadow: 0 0 6px #44ff4466;
+    transform: translateX(16px);
+    background: #fff;
   }
 
-  /* Range slider */
+  /* Range slider — retro */
   input[type="range"] {
     -webkit-appearance: none;
-    width: 110px;
-    height: 4px;
-    background: #1a1a2e;
-    border-radius: 2px;
+    width: 100px;
+    height: 2px;
+    background: #000;
     outline: none;
   }
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 14px; height: 14px;
-    background: #ff6633;
-    border-radius: 2px;
+    width: 10px; height: 16px;
+    background: #c0c0c0;
     cursor: pointer;
-    box-shadow: 0 0 8px rgba(255,102,51,0.4);
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #555;
+    border-right: 2px solid #555;
   }
   input[type="range"]::-moz-range-thumb {
-    width: 14px; height: 14px;
-    background: #ff6633;
+    width: 10px; height: 16px;
+    background: #c0c0c0;
     border: none;
-    border-radius: 2px;
     cursor: pointer;
   }
 
   .range-val {
-    font-size: 10px;
-    color: #ff6633;
-    min-width: 28px;
+    font-size: 7px;
+    color: #000;
+    min-width: 24px;
     text-align: right;
   }
 
-  /* Select dropdown */
+  /* Select dropdown — retro */
   select {
-    background: #12122a;
-    color: #b0b8c8;
-    border: 1px solid #252540;
-    border-radius: 4px;
-    padding: 6px 10px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
+    background: #fff;
+    color: #000;
+    border-top: 2px solid #555;
+    border-left: 2px solid #555;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    padding: 4px 6px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
     outline: none;
     cursor: pointer;
     width: 100%;
-    transition: border-color 0.2s;
   }
-  select:hover { border-color: #ff6633; }
-  select:focus { border-color: #ff6633; box-shadow: 0 0 8px rgba(255,102,51,0.2); }
-  option { background: #12122a; }
+  option { background: #fff; }
 
-  /* Color input */
+  /* Color input — retro */
   input[type="color"] {
     -webkit-appearance: none;
-    width: 28px; height: 22px;
-    border: 1px solid #252540;
-    border-radius: 3px;
+    width: 24px; height: 18px;
+    border-top: 2px solid #555;
+    border-left: 2px solid #555;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
     padding: 0;
     cursor: pointer;
     background: none;
   }
   input[type="color"]::-webkit-color-swatch-wrapper { padding: 1px; }
-  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 2px; }
+  input[type="color"]::-webkit-color-swatch { border: none; }
 
   /* ─── GAME AREA ─── */
   #gameArea {
@@ -198,108 +200,141 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    background: #c0c0c0;
   }
 
   #scoreboard {
     display: flex;
-    gap: 40px;
-    margin-bottom: 12px;
+    gap: 30px;
+    margin-bottom: 8px;
     font-family: 'Press Start 2P', monospace;
+    background: #e8e8e8;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #555;
+    border-right: 2px solid #555;
+    padding: 8px 20px;
   }
 
   .score-item {
     text-align: center;
   }
   .score-name {
-    font-size: 8px;
+    font-size: 7px;
     margin-bottom: 4px;
     letter-spacing: 1px;
   }
   .score-pts {
     font-size: 18px;
-    text-shadow: 0 0 12px currentColor;
+    text-shadow: 1px 1px 0 #555;
   }
 
   canvas {
     display: block;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    border: 1px solid #1a1a2e;
+    border-top: 3px solid #555;
+    border-left: 3px solid #555;
+    border-bottom: 3px solid #fff;
+    border-right: 3px solid #fff;
   }
 
   #fps {
     position: absolute;
     bottom: 10px;
     right: 20px;
-    font-size: 10px;
-    color: #333;
+    font-size: 7px;
+    color: #666;
   }
 
+  /* Buttons — retro raised pixel */
   .btn-reset {
-    background: #1a1020;
-    border: 1px solid #3a2040;
-    color: #ff4466;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    padding: 6px 14px;
-    border-radius: 4px;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #555;
+    border-right: 2px solid #555;
+    color: #000;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    padding: 6px 10px;
     cursor: pointer;
     letter-spacing: 1px;
-    transition: all 0.2s;
+    transition: none;
     width: 100%;
     margin-top: 4px;
+    border-radius: 0;
   }
   .btn-reset:hover {
-    background: #2a1530;
-    border-color: #ff4466;
-    box-shadow: 0 0 12px rgba(255,68,102,0.2);
+    background: #d0d0d0;
+  }
+  .btn-reset:active {
+    border-top: 2px solid #555;
+    border-left: 2px solid #555;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    background: #aaa;
   }
 
   #panel.hidden {
     display: none;
   }
 
+  /* Panel header — retro title bar */
   .panel-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 0 6px;
-    border-bottom: 1px solid #1a1a2e;
-    margin-bottom: 4px;
+    padding: 4px 6px;
+    background: #000;
+    color: #fff;
+    margin: 0;
+    border-bottom: 2px solid #000;
+  }
+
+  .panel-header .panel-title {
+    color: #fff;
+    font-size: 8px;
   }
 
   .panel-close {
-    background: none;
-    border: 1px solid #2a2a3a;
-    color: #555;
-    font-size: 14px;
-    width: 26px;
-    height: 26px;
-    border-radius: 4px;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #555;
+    border-right: 2px solid #555;
+    color: #000;
+    font-size: 8px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: none;
     line-height: 1;
+    padding: 0;
+    border-radius: 0;
   }
-  .panel-close:hover {
-    color: #ff4466;
-    border-color: #ff4466;
+  .panel-close:active {
+    border-top: 2px solid #555;
+    border-left: 2px solid #555;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
   }
 
+  /* Toast — retro alert */
   .toast {
     position: fixed;
     top: 16px;
     left: 50%;
     transform: translateX(-50%) translateY(-60px);
-    background: #0e1a12;
-    border: 1px solid #2a5533;
-    color: #44ff44;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    padding: 8px 20px;
-    border-radius: 6px;
+    background: #e8e8e8;
+    border: 2px solid #000;
+    color: #000;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 8px 16px;
     z-index: 100;
     pointer-events: none;
     opacity: 0;
@@ -311,55 +346,256 @@
     transform: translateX(-50%) translateY(0);
   }
 
-  /* ─── ROLE PICKER OVERLAY ─── */
+  /* ─── ROLE PICKER — retro dialog box ─── */
   #rolePicker {
     position: absolute;
     inset: 0;
-    background: rgba(6,6,14,0.92);
+    background: rgba(192,192,192,0.95);
     display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 50;
-    gap: 16px;
+    gap: 0;
   }
   #rolePicker.active { display: flex; }
 
+  .role-picker-window {
+    background: #c0c0c0;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-bottom: 3px solid #000;
+    border-right: 3px solid #000;
+    padding: 0;
+    width: 320px;
+  }
+
+  .role-picker-titlebar {
+    background: #000;
+    color: #fff;
+    font-size: 8px;
+    padding: 5px 8px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .role-picker-titlebar::before {
+    content: '◆';
+    font-size: 8px;
+  }
+
+  .role-picker-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid #888;
+    margin: 6px;
+    border-style: dashed;
+  }
+
   .role-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
-    color: #ff6633;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-    text-shadow: 0 0 14px rgba(255,102,51,0.5);
+    font-size: 8px;
+    color: #000;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
   }
 
   .role-btn {
-    background: #0e0e1a;
-    border: 2px solid #252540;
-    color: #b0b8c8;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #555;
+    border-right: 2px solid #555;
+    color: #000;
     font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    padding: 16px 32px;
-    border-radius: 8px;
+    font-size: 8px;
+    padding: 10px 20px;
     cursor: pointer;
-    transition: all 0.25s;
-    width: 260px;
+    transition: none;
+    width: 220px;
     text-align: center;
     letter-spacing: 1px;
+    border-radius: 0;
   }
   .role-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px currentColor;
+    background: #d4d4d4;
   }
-  .role-btn .role-hint {
-    display: block;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 9px;
-    color: #556;
-    margin-top: 6px;
-    letter-spacing: 0;
+  .role-btn:active {
+    border-top: 2px solid #555;
+    border-left: 2px solid #555;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    background: #aaa;
   }
+
+  /* Panel body padding */
+  .panel-body {
+    padding: 4px 0;
+  }
+
+  /* ─── Theme toggle row ─── */
+  .theme-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border-bottom: 2px solid #888;
+    margin-bottom: 2px;
+  }
+  .theme-label {
+    font-size: 7px;
+    color: #000;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .theme-label::before { content: '☀'; font-size: 10px; }
+
+  /* ─── DARK THEME ─── */
+  body.dark { background: #0a0a14; }
+
+  body.dark #panel {
+    background: #0e0e1a;
+    border-right: 3px solid #222;
+    border-top: 3px solid #333;
+    border-left: 3px solid #333;
+    border-bottom: 3px solid #111;
+    scrollbar-color: #222 #0e0e1a;
+  }
+  body.dark #panel::-webkit-scrollbar-track { background: #0e0e1a; }
+  body.dark #panel::-webkit-scrollbar-thumb { background: #222; border-color: #333; }
+
+  body.dark .section {
+    background: #111120;
+    border-color: #222238;
+  }
+  body.dark .section-label {
+    color: #667;
+    border-bottom-color: #333;
+  }
+  body.dark .section-label::before { color: #888; }
+  body.dark .control-label { color: #778; }
+  body.dark .range-val { color: #aaa; }
+
+  body.dark .toggle .slider {
+    background: #1a1a2e;
+    border-top-color: #111;
+    border-left-color: #111;
+    border-bottom-color: #333;
+    border-right-color: #333;
+  }
+  body.dark .toggle .slider::after { background: #444; }
+  body.dark .toggle input:checked + .slider { background: #003300; }
+  body.dark .toggle input:checked + .slider::after { background: #4f4; }
+
+  body.dark input[type="range"] { background: #333; }
+  body.dark input[type="range"]::-webkit-slider-thumb {
+    background: #444;
+    border-top-color: #666;
+    border-left-color: #666;
+    border-bottom-color: #222;
+    border-right-color: #222;
+  }
+
+  body.dark select {
+    background: #111;
+    color: #aaa;
+    border-top-color: #111;
+    border-left-color: #111;
+    border-bottom-color: #333;
+    border-right-color: #333;
+  }
+  body.dark option { background: #111; }
+
+  body.dark input[type="color"] {
+    border-top-color: #111;
+    border-left-color: #111;
+    border-bottom-color: #333;
+    border-right-color: #333;
+  }
+
+  body.dark .btn-reset {
+    background: #1a1a28;
+    color: #aaa;
+    border-top-color: #333;
+    border-left-color: #333;
+    border-bottom-color: #111;
+    border-right-color: #111;
+  }
+  body.dark .btn-reset:hover { background: #222230; }
+  body.dark .btn-reset:active {
+    background: #111;
+    border-top-color: #111;
+    border-left-color: #111;
+    border-bottom-color: #333;
+    border-right-color: #333;
+  }
+
+  body.dark .panel-header { background: #222; }
+  body.dark .panel-close {
+    background: #333;
+    color: #aaa;
+    border-top-color: #555;
+    border-left-color: #555;
+    border-bottom-color: #111;
+    border-right-color: #111;
+  }
+
+  body.dark .theme-row { border-bottom-color: #333; }
+  body.dark .theme-label { color: #888; }
+  body.dark .theme-label::before { content: '☾'; }
+
+  body.dark #gameArea { background: #0a0a14; }
+
+  body.dark #scoreboard {
+    background: #111120;
+    border-top-color: #333;
+    border-left-color: #333;
+    border-bottom-color: #111;
+    border-right-color: #111;
+  }
+  body.dark .score-pts { text-shadow: 0 0 8px currentColor; }
+
+  body.dark canvas {
+    border-top-color: #111;
+    border-left-color: #111;
+    border-bottom-color: #333;
+    border-right-color: #333;
+  }
+
+  body.dark .toast {
+    background: #111;
+    border-color: #444;
+    color: #4f4;
+  }
+
+  body.dark #rolePicker { background: rgba(10,10,20,0.94); }
+  body.dark .role-picker-window {
+    background: #1a1a28;
+    border-top-color: #444;
+    border-left-color: #444;
+    border-bottom-color: #111;
+    border-right-color: #111;
+  }
+  body.dark .role-picker-titlebar { background: #333; }
+  body.dark .role-picker-body { border-color: #444; }
+  body.dark .role-btn {
+    background: #1a1a28;
+    color: #ccc;
+    border-top-color: #444;
+    border-left-color: #444;
+    border-bottom-color: #111;
+    border-right-color: #111;
+  }
+  body.dark .role-btn:hover { background: #222238; }
+  body.dark .role-btn:active { background: #111; }
+
+  body.dark #restartLink { color: #555; border-bottom-color: #444; }
 </style>
 </head>
 <body>
@@ -371,11 +607,16 @@
       <button class="panel-close" id="panelClose" title="Close (or press * 3 times)">&#10005;</button>
     </div>
 
+    <div class="theme-row">
+      <span class="theme-label">Dark Mode</span>
+      <label class="toggle"><input type="checkbox" id="toggleDarkMode"><span class="slider"></span></label>
+    </div>
+
     <!-- ARENA -->
     <div class="section">
       <div class="section-label">Iran Map</div>
       <div class="control-row">
-        <span class="control-label">White Border</span>
+        <span class="control-label">Mono Border</span>
         <label class="toggle"><input type="checkbox" id="toggleBorderWhite"><span class="slider"></span></label>
       </div>
       <div class="control-row">
@@ -524,23 +765,23 @@
       <div class="section-label">Player Colors</div>
       <div class="control-row">
         <span class="control-label">IRGC</span>
-        <input type="color" id="color1" value="#44ff44">
+        <input type="color" id="color1" value="#006600">
       </div>
       <div class="control-row">
         <span class="control-label">US Army</span>
-        <input type="color" id="color2" value="#ff4444">
+        <input type="color" id="color2" value="#cc0000">
       </div>
       <div class="control-row">
         <span class="control-label">IDF</span>
-        <input type="color" id="color3" value="#4488ff">
+        <input type="color" id="color3" value="#0044cc">
       </div>
       <div class="control-row">
         <span class="control-label">Background</span>
-        <input type="color" id="bgColor" value="#111118">
+        <input type="color" id="bgColor" value="#e8e8e8">
       </div>
       <div class="control-row">
         <span class="control-label">Border Color</span>
-        <input type="color" id="borderColor" value="#2a2a3a">
+        <input type="color" id="borderColor" value="#000000">
       </div>
     </div>
 
@@ -558,26 +799,13 @@
       </div>
     </div>
 
-    <!-- THEME PRESETS -->
-    <div class="section">
-      <div class="section-label">Theme Presets</div>
-      <select id="themeSelect">
-        <option value="default">Default — Military</option>
-        <option value="neon">Neon Arcade</option>
-        <option value="hacker">Hacker Green</option>
-        <option value="sunset">Sunset Desert</option>
-        <option value="ice">Arctic Ice</option>
-        <option value="retro">Retro Amber</option>
-      </select>
-    </div>
-
     <!-- ACTIONS -->
     <div class="section">
       <div class="section-label">Actions</div>
       <button class="btn-reset" id="btnReset">Reset Scores</button>
-      <button class="btn-reset" id="btnRelaunch" style="margin-top:4px; color:#ff9933; border-color:#3a3020;">Relaunch Rocket</button>
-      <button class="btn-reset" id="btnSave" style="margin-top:8px; color:#44ff44; border-color:#2a5533;">Save Settings</button>
-      <button class="btn-reset" id="btnDefaults" style="margin-top:4px; color:#8890a0; border-color:#2a2a3a;">Reset to Defaults</button>
+      <button class="btn-reset" id="btnRelaunch">Relaunch Rocket</button>
+      <button class="btn-reset" id="btnSave">Save Settings</button>
+      <button class="btn-reset" id="btnDefaults">Reset to Defaults</button>
     </div>
   </div>
 
@@ -590,24 +818,28 @@
     </div>
     <canvas id="game"></canvas>
     <div style="text-align:center; margin-top:10px;">
-      <span id="restartLink" style="color:#444; font-size:16px; cursor:pointer; font-family:'Share Tech Mono',monospace; letter-spacing:1px;">Restart</span>
+      <span id="restartLink" style="color:#555; font-size:10px; cursor:pointer; font-family:'Press Start 2P',monospace; letter-spacing:1px; border-bottom:1px dashed #888; padding-bottom:2px;">Restart</span>
     </div>
     <div id="fps"></div>
     <!-- Role Picker Overlay -->
     <div id="rolePicker">
-      <div class="role-title">CHOOSE YOUR SIDE</div>
-      <button class="role-btn" id="pickIRGC" style="color:#44ff44; border-color:#2a5533;">
-        IRGC
-      </button>
-      <button class="role-btn" id="pickUSA" style="color:#ff4444; border-color:#5a2030;">
-        US ARMY
-      </button>
-      <button class="role-btn" id="pickIDF" style="color:#4488ff; border-color:#203a5a;">
-        IDF
-      </button>
-      <button class="role-btn" id="pickWatch" style="color:#b0b8c8; border-color:#555; margin-top:20px;">
-        JUST WATCH
-      </button>
+      <div class="role-picker-window">
+        <div class="role-picker-titlebar">CHOOSE YOUR SIDE</div>
+        <div class="role-picker-body">
+          <button class="role-btn" id="pickIRGC">
+            IRGC
+          </button>
+          <button class="role-btn" id="pickUSA">
+            US ARMY
+          </button>
+          <button class="role-btn" id="pickIDF">
+            IDF
+          </button>
+          <button class="role-btn" id="pickWatch" style="margin-top:14px; border-style: solid; border-color: #888;">
+            JUST WATCH
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -633,8 +865,8 @@ const cfg = {
   userPlayer: -1,  // which player index the user controls (-1 = none yet)
   paused: false,   // game paused waiting for role pick
   scoreFontSize: 18, frameBorder: 1, frameRadius: 0,
-  colors: ['#44ff44','#ff4444','#4488ff'],
-  bg: '#111118', border: '#2a2a3a',
+  colors: ['#006600','#cc0000','#0044cc'],
+  bg: '#e8e8e8', border: '#000000',
 };
 
 // ─── Wire up controls ───
@@ -860,6 +1092,10 @@ function applyCfgToUI() {
   document.getElementById('toggleSound').checked = cfg.soundEnabled;
   document.getElementById('toggleBorderWhite').checked = cfg.borderWhite;
 
+  // Dark mode
+  document.getElementById('toggleDarkMode').checked = !!cfg.darkMode;
+  applyTheme();
+
   // Play mode — always start with role picker on load
   cfg.playMode = true;
   cfg.userPlayer = -1;
@@ -911,25 +1147,31 @@ document.getElementById('btnDefaults').addEventListener('click', () => {
   showToast('Defaults restored');
 });
 
-// ─── Theme presets ───
-document.getElementById('themeSelect').addEventListener('change', e => {
-  const themes = {
-    default: { colors: ['#44ff44','#ff4444','#4488ff'], bg: '#111118', border: '#2a2a3a' },
-    neon:    { colors: ['#ff00ff','#00ffff','#ffff00'], bg: '#0a0018', border: '#2a0048' },
-    hacker:  { colors: ['#00ff41','#00cc33','#00ff99'], bg: '#000a00', border: '#003300' },
-    sunset:  { colors: ['#ff8844','#ff4488','#ffcc22'], bg: '#1a0a08', border: '#3a2018' },
-    ice:     { colors: ['#88ddff','#aaeeff','#ffffff'], bg: '#080e14', border: '#1a2a3a' },
-    retro:   { colors: ['#ffaa00','#ff6600','#ff3300'], bg: '#0a0800', border: '#2a2200' },
-  };
-  const t = themes[e.target.value];
-  if (!t) return;
-  cfg.colors = [...t.colors]; cfg.bg = t.bg; cfg.border = t.border;
+// ─── Dark / Light Mode ───
+const lightTheme = { colors: ['#006600','#cc0000','#0044cc'], bg: '#e8e8e8', border: '#000000' };
+const darkTheme  = { colors: ['#44ff44','#ff4444','#4488ff'], bg: '#111118', border: '#2a2a3a' };
+
+cfg.darkMode = false;
+
+function applyTheme() {
+  const t = cfg.darkMode ? darkTheme : lightTheme;
+  cfg.colors = [...t.colors];
+  cfg.bg = t.bg;
+  cfg.border = t.border;
+
+  document.body.classList.toggle('dark', cfg.darkMode);
+
   document.getElementById('color1').value = t.colors[0];
   document.getElementById('color2').value = t.colors[1];
   document.getElementById('color3').value = t.colors[2];
   document.getElementById('bgColor').value = t.bg;
   document.getElementById('borderColor').value = t.border;
   updateScoreColors();
+}
+
+document.getElementById('toggleDarkMode').addEventListener('change', e => {
+  cfg.darkMode = e.target.checked;
+  applyTheme();
 });
 
 // ─── Shape Definitions ───
@@ -1455,8 +1697,8 @@ function drawBorder() {
     const segs = getPlayerSegs(p);
     if (!segs.length) continue;
 
-    const col = cfg.borderWhite ? '#ffffff' : cfg.colors[p];
-    ctx.strokeStyle = col + '55';
+    const col = cfg.borderWhite ? (cfg.darkMode ? '#ffffff' : '#000000') : cfg.colors[p];
+    ctx.strokeStyle = col + (cfg.darkMode ? '88' : 'aa');
     ctx.lineWidth=cfg.borderThickness;
     ctx.lineJoin='round';
     ctx.lineCap='round';
@@ -1466,8 +1708,8 @@ function drawBorder() {
     ctx.stroke();
 
     if (cfg.glow) {
-      ctx.strokeStyle = col + '18';
-      ctx.lineWidth=cfg.borderThickness * 4;
+      ctx.strokeStyle = col + '22';
+      ctx.lineWidth=cfg.borderThickness * 3;
       ctx.beginPath();
       ctx.moveTo(segs[0].a.x, segs[0].a.y);
       for (const s of segs) ctx.lineTo(s.b.x, s.b.y);
@@ -1483,7 +1725,7 @@ function drawPaddles() {
     ctx.strokeStyle=cfg.colors[p];
     ctx.lineWidth=cfg.paddleWidth;
     ctx.lineCap='round';
-    if (cfg.glow) { ctx.shadowColor=cfg.colors[p]; ctx.shadowBlur=14; }
+    if (cfg.glow) { ctx.shadowColor=cfg.colors[p]; ctx.shadowBlur=6; }
     ctx.beginPath();
     ctx.moveTo(pts[0].x,pts[0].y);
     for (let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x,pts[i].y);
@@ -1539,7 +1781,9 @@ function drawRocketObj(time) {
     const s=smokeParticles[i]; s.life-=s.decay; s.size+=0.3;
     if(s.life<=0){smokeParticles.splice(i,1);continue;}
     const g=Math.floor(80+(1-s.life)*50);
-    drawPx(s.x,s.y,Math.round(s.size/PX)*PX,`rgba(${g},${g},${g+20},${(s.life*0.4).toFixed(2)})`);
+    let sg;
+    if (cfg.darkMode) { sg = g; } else { sg = Math.max(0, 140 - g); }
+    drawPx(s.x,s.y,Math.round(s.size/PX)*PX,`rgba(${sg},${sg},${sg},${(s.life*0.35).toFixed(2)})`);
   }
 
   // Draw fire sparks
@@ -1555,25 +1799,30 @@ function drawRocketObj(time) {
   ctx.translate(rocket.x,rocket.y);
   ctx.rotate(angle);
   const s = PX * sc;
-  const rc = ['#cc2200','#ee4400','#ff6600'];
+  const rc = cfg.darkMode ? ['#cc2200','#ee4400','#ff6600'] : ['#222','#444','#333'];
+  const bodyA = cfg.darkMode ? '#aaa' : '#555';
+  const bodyB = cfg.darkMode ? '#bbb' : '#666';
+  const bodyC = cfg.darkMode ? '#999' : '#444';
+  const nose  = cfg.darkMode ? '#fff' : '#000';
+  const fin   = cfg.darkMode ? '#666' : '#333';
   // Body
   for (let row=-2;row<=2;row++) {
-    drawPx(row*s, -2*s, s, '#aaa');
-    drawPx(row*s, -1*s, s, row===0?rc[1]:'#bbb');
-    drawPx(row*s, 0, s, row===0?rc[0]:'#aaa');
-    drawPx(row*s, 1*s, s, '#999');
+    drawPx(row*s, -2*s, s, bodyA);
+    drawPx(row*s, -1*s, s, row===0?rc[1]:bodyB);
+    drawPx(row*s, 0, s, row===0?rc[0]:bodyA);
+    drawPx(row*s, 1*s, s, bodyC);
   }
   // Nose
-  drawPx(3*s, -1*s, s, '#fff');
-  drawPx(3*s, 0, s, '#fff');
-  drawPx(4*s, 0, s, '#ff3300');
+  drawPx(3*s, -1*s, s, nose);
+  drawPx(3*s, 0, s, nose);
+  drawPx(4*s, 0, s, '#cc2200');
   // Fins
-  drawPx(-2*s, -3*s, s, '#666');
-  drawPx(-2*s, 2*s, s, '#666');
+  drawPx(-2*s, -3*s, s, fin);
+  drawPx(-2*s, 2*s, s, fin);
 
   if (cfg.glow) {
-    ctx.shadowColor='#ff4400'; ctx.shadowBlur=20*sc;
-    ctx.fillStyle='#ff660022';
+    ctx.shadowColor=cfg.darkMode?'#ff4400':'#cc4400'; ctx.shadowBlur=(cfg.darkMode?20:12)*sc;
+    ctx.fillStyle=cfg.darkMode?'#ff660022':'#cc440018';
     ctx.fillRect(-3*s,-3*s,8*s,6*s);
     ctx.shadowBlur=0;
   }
@@ -1584,7 +1833,8 @@ function drawTrailFn() {
   if (!cfg.trail) return;
   for (let i=0;i<rocket.trail.length;i++) {
     const alpha=i/rocket.trail.length;
-    drawPx(rocket.trail[i].x,rocket.trail[i].y,PX,`rgba(255,100,0,${(alpha*0.3).toFixed(2)})`);
+    const tc = cfg.darkMode ? `rgba(255,100,0,${(alpha*0.3).toFixed(2)})` : `rgba(80,40,0,${(alpha*0.4).toFixed(2)})`;
+    drawPx(rocket.trail[i].x,rocket.trail[i].y,PX,tc);
   }
 }
 
@@ -1601,31 +1851,42 @@ function drawStarsFn(time) {
   if (!cfg.stars) return;
   for (const s of stars) {
     const br=s.b+Math.sin(time*0.002+s.phase)*0.15;
-    const c=Math.floor(br*255);
-    drawPx(s.x,s.y,Math.round(s.s/PX)*PX,`rgb(${c},${c},${c+30})`);
+    let c;
+    if (cfg.darkMode) {
+      c = Math.floor(br * 255);
+      drawPx(s.x,s.y,Math.round(s.s/PX)*PX,`rgb(${c},${c},${c+30})`);
+    } else {
+      c = Math.max(0, Math.min(255, Math.floor((1 - br) * 180 + 60)));
+      drawPx(s.x,s.y,Math.round(s.s/PX)*PX,`rgb(${c},${c},${c})`);
+    }
   }
 }
 
 function drawGridFn() {
   if (!cfg.grid) return;
   for (let x=80;x<W-50;x+=35) for (let y=30;y<H-30;y+=35) {
-    if (pointInPoly(x,y)) drawPx(x,y,PX,'#151520');
+    if (pointInPoly(x,y)) drawPx(x,y,PX, cfg.darkMode ? '#151520' : '#ccc');
   }
 }
 
 function drawDustFn(time) {
   for (const d of dustDots) {
     const flicker = d.brightness + Math.sin(time * d.speed * 60 + d.phase) * 0.06;
-    // Brighten when hit by rocket
-    const hitBoost = d.hit * 0.8;
-    const b = Math.max(0, Math.min(255, Math.floor((flicker + hitBoost) * 255)));
-    // Shift color toward orange/white when hit
-    const r = Math.min(255, b + Math.floor(d.hit * 200));
-    const g = Math.min(255, b + Math.floor(d.hit * 120));
-    const bl = b + 15;
-    // Size grows slightly when moving fast
+    const hitBoost = d.hit * 0.6;
     const moveSpeed = Math.hypot(d.vx, d.vy);
     const sz = d.size + moveSpeed * 0.8;
+    let r, g, bl;
+    if (cfg.darkMode) {
+      const b = Math.max(0, Math.min(255, Math.floor((flicker + hitBoost * 1.3) * 255)));
+      r = Math.min(255, b + Math.floor(d.hit * 200));
+      g = Math.min(255, b + Math.floor(d.hit * 120));
+      bl = b + 15;
+    } else {
+      const base = Math.max(0, Math.min(255, Math.floor((1 - flicker - hitBoost) * 200 + 40)));
+      r = Math.max(0, base - Math.floor(d.hit * 150));
+      g = Math.max(0, base - Math.floor(d.hit * 100));
+      bl = base;
+    }
     drawPx(d.x, d.y, Math.round(sz / PX) * PX, `rgb(${r},${g},${bl})`);
   }
 }
@@ -1634,7 +1895,7 @@ function drawCitiesFn() {}
 
 function drawScanlines() {
   if (!cfg.scanlines) return;
-  ctx.fillStyle='rgba(0,0,0,0.06)';
+  ctx.fillStyle = cfg.darkMode ? 'rgba(0,0,0,0.06)' : 'rgba(0,0,0,0.03)';
   for (let y=0;y<H;y+=4) ctx.fillRect(0,y,W,2);
 }
 
@@ -1643,7 +1904,7 @@ function drawCRT() {
   // Vignette
   const grad = ctx.createRadialGradient(W/2,H/2,H*0.3,W/2,H/2,H*0.7);
   grad.addColorStop(0,'rgba(0,0,0,0)');
-  grad.addColorStop(1,'rgba(0,0,0,0.35)');
+  grad.addColorStop(1, cfg.darkMode ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.12)');
   ctx.fillStyle=grad;
   ctx.fillRect(0,0,W,H);
 }
