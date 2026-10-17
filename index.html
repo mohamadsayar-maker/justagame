@@ -609,7 +609,7 @@
 
     <div class="theme-row">
       <span class="theme-label">Dark Mode</span>
-      <label class="toggle"><input type="checkbox" id="toggleDarkMode"><span class="slider"></span></label>
+      <label class="toggle"><input type="checkbox" id="toggleDarkMode" checked><span class="slider"></span></label>
     </div>
 
     <!-- ARENA -->
@@ -621,13 +621,13 @@
       </div>
       <div class="control-row">
         <span class="control-label">Thickness</span>
-        <input type="range" id="borderThickness" min="1" max="12" step="0.5" value="3">
-        <span class="range-val" id="borderThicknessVal">3</span>
+        <input type="range" id="borderThickness" min="1" max="12" step="0.5" value="3.5">
+        <span class="range-val" id="borderThicknessVal">3.5</span>
       </div>
       <div class="control-row">
         <span class="control-label">Player Rotation</span>
-        <input type="range" id="playerRotation" min="0" max="100" step="1" value="0">
-        <span class="range-val" id="playerRotationVal">0%</span>
+        <input type="range" id="playerRotation" min="0" max="100" step="1" value="69">
+        <span class="range-val" id="playerRotationVal">69%</span>
       </div>
     </div>
 
@@ -636,7 +636,7 @@
       <div class="section-label">Game Mode</div>
       <div class="control-row">
         <span class="control-label">Play as a team</span>
-        <label class="toggle"><input type="checkbox" id="togglePlayMode"><span class="slider"></span></label>
+        <label class="toggle"><input type="checkbox" id="togglePlayMode" checked><span class="slider"></span></label>
       </div>
     </div>
 
@@ -661,8 +661,8 @@
       </div>
       <div class="control-row">
         <span class="control-label">Rocket Size</span>
-        <input type="range" id="rocketSize" min="0.5" max="3" step="0.1" value="1">
-        <span class="range-val" id="rocketSizeVal">1.0</span>
+        <input type="range" id="rocketSize" min="0.5" max="3" step="0.1" value="1.4">
+        <span class="range-val" id="rocketSizeVal">1.4</span>
       </div>
     </div>
 
@@ -691,8 +691,8 @@
       </div>
       <div class="control-row">
         <span class="control-label">Dust Particles</span>
-        <input type="range" id="dustAmount" min="0" max="500" step="10" value="100">
-        <span class="range-val" id="dustAmountVal">100</span>
+        <input type="range" id="dustAmount" min="0" max="500" step="10" value="200">
+        <span class="range-val" id="dustAmountVal">200</span>
       </div>
     </div>
 
@@ -706,8 +706,8 @@
       </div>
       <div class="control-row">
         <span class="control-label">Paddle Size</span>
-        <input type="range" id="paddleSize" min="20" max="120" step="5" value="60">
-        <span class="range-val" id="paddleSizeVal">60</span>
+        <input type="range" id="paddleSize" min="20" max="120" step="5" value="115">
+        <span class="range-val" id="paddleSizeVal">115</span>
       </div>
       <div class="control-row">
         <span class="control-label">AI Difficulty</span>
@@ -716,13 +716,13 @@
       </div>
       <div class="control-row">
         <span class="control-label">Paddle Width</span>
-        <input type="range" id="paddleWidth" min="4" max="16" step="1" value="8">
-        <span class="range-val" id="paddleWidthVal">8</span>
+        <input type="range" id="paddleWidth" min="4" max="16" step="1" value="9">
+        <span class="range-val" id="paddleWidthVal">9</span>
       </div>
       <div class="control-row">
         <span class="control-label">Name Size</span>
-        <input type="range" id="nameSize" min="4" max="20" step="1" value="7">
-        <span class="range-val" id="nameSizeVal">7</span>
+        <input type="range" id="nameSize" min="4" max="20" step="1" value="12">
+        <span class="range-val" id="nameSizeVal">12</span>
       </div>
     </div>
 
@@ -857,16 +857,17 @@ const PX = 3;
 const cfg = {
   fire: true, smoke: true, trail: true, explosions: true,
   scanlines: true, stars: true, glow: true, grid: true, crt: true,
-  speed: 4, paddleLen: 60, aiDiff: 6, paddleWidth: 8, rocketScale: 1, dustCount: 100,
-  nameSize: 7, shakeIntensity: 8, shakeEnabled: true,
+  speed: 4, paddleLen: 115, aiDiff: 6, paddleWidth: 9, rocketScale: 1.4, dustCount: 200,
+  nameSize: 12, shakeIntensity: 8, shakeEnabled: true,
   soundEnabled: true, soundVolume: 0.5,
-  borderWhite: false, borderThickness: 3, playerRotation: 0,
+  borderWhite: false, borderThickness: 3.5, playerRotation: 69,
   playMode: false, // false = all AI, true = user plays
   userPlayer: -1,  // which player index the user controls (-1 = none yet)
   paused: false,   // game paused waiting for role pick
   scoreFontSize: 18, frameBorder: 1, frameRadius: 0,
   colors: ['#006600','#cc0000','#0044cc'],
-  bg: '#e8e8e8', border: '#000000',
+  bg: '#111118', border: '#2a2a3a',
+  darkMode: true,
 };
 
 // ─── Wire up controls ───
@@ -1054,7 +1055,7 @@ function updateUserPaddle() {
 }
 
 // ─── Save / Load Settings ───
-const SAVE_KEY = 'iranPongSettings';
+const SAVE_KEY = 'iranPongSettingsV2';
 
 const defaultCfg = JSON.parse(JSON.stringify(cfg));
 
@@ -1112,7 +1113,7 @@ function applyCfgToUI() {
     dustAmount: ['dustCount', 'dustAmountVal', null],
     nameSize: ['nameSize', 'nameSizeVal', null],
     shakeIntensity: ['shakeIntensity', 'shakeIntensityVal', null],
-    soundVolume: ['soundVolume', 'soundVolumeVal', v => Math.round(parseFloat(v) * 100).toString()],
+    soundVolume: ['soundVolume', 'soundVolumeVal', v => Math.round(parseFloat(v)).toString()],
     borderThickness: ['borderThickness', 'borderThicknessVal', null],
     playerRotation: ['playerRotation', 'playerRotationVal', v => v + '%'],
     scoreFontSize: ['scoreFontSize', 'scoreFontSizeVal', null],
@@ -1151,7 +1152,7 @@ document.getElementById('btnDefaults').addEventListener('click', () => {
 const lightTheme = { colors: ['#006600','#cc0000','#0044cc'], bg: '#e8e8e8', border: '#000000' };
 const darkTheme  = { colors: ['#44ff44','#ff4444','#4488ff'], bg: '#111118', border: '#2a2a3a' };
 
-cfg.darkMode = false;
+cfg.darkMode = true;
 
 function applyTheme() {
   const t = cfg.darkMode ? darkTheme : lightTheme;
@@ -1995,10 +1996,9 @@ function gameLoop(time) {
 }
 
 // ─── Init ───
-// Load saved settings if available
-if (loadCfgFromStorage()) {
-  applyCfgToUI();
-}
+// Load saved settings if available, then always sync defaults/settings to the controls
+loadCfgFromStorage();
+applyCfgToUI();
 buildShape();
 resetRocket();
 updateScoreboard();
